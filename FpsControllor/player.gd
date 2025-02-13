@@ -466,7 +466,7 @@ func on_level_up(skill_points_gain: int):
 	health = max_health
 	skill_available_points += skill_points_gain
 	curr_level = $LevellingSystem.curr_level
-	if curr_level % 2 == 0:
+	if curr_level %2 == 0:
 		skill_available_points += skill_points_gain
 		perk_available_points += 1
 		$PlayerHUD.get_node("Reminder").set_text("Level Up!!!" + "\n" + "New Perk Point Gained!!!")
@@ -476,7 +476,6 @@ func on_level_up(skill_points_gain: int):
 		$PlayerHUD.get_node("Reminder").set_visible(true)
 	await get_tree().create_timer(3.0).timeout
 	$PlayerHUD.get_node("Reminder").set_visible(false)
-	print("sdadasd")
 @onready var animation_tree : AnimationTree = $"WorldModel/desert droid container/AnimationTree"
 @onready var state_machine_playback : AnimationNodeStateMachinePlayback = $"WorldModel/desert droid container/AnimationTree".get("parameters/playback")
 
