@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://ouejx70p4ccv"]
+
+[ext_resource type="PackedScene" uid="uid://c76vl0in5ubxb" path="res://FpsControllor/weapon_manager/rpg/rocket-launcher.glb" id="1_qo146"]
+
+[sub_resource type="Animation" id="Animation_gh5et"]
+resource_name = "Idle"
+
+[sub_resource type="Animation" id="Animation_8oxji"]
+resource_name = "Reload"
+
+[sub_resource type="Animation" id="Animation_hd1ar"]
+resource_name = "Shoot"
+
+[sub_resource type="Animation" id="Animation_qaped"]
+resource_name = "Unholster"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sojh4"]
+_data = {
+"Idle": SubResource("Animation_gh5et"),
+"Reload": SubResource("Animation_8oxji"),
+"Shoot": SubResource("Animation_hd1ar"),
+"Unholster": SubResource("Animation_qaped")
+}
+
+[node name="rocket-launcher" instance=ExtResource("1_qo146")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+libraries = {
+"": SubResource("AnimationLibrary_sojh4")
+}

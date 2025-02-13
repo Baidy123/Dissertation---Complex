@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="ShotgunWeaponResource" load_steps=4 format=3 uid="uid://mr1w35xr4wff"]
+
+[ext_resource type="Script" path="res://FpsControllor/weapon_manager/shootgun_weapon_resource.gd" id="1_p5ttn"]
+[ext_resource type="PackedScene" uid="uid://ouejx70p4ccv" path="res://FpsControllor/weapon_manager/rpg/rocket_launcher.tscn" id="2_hkvon"]
+[ext_resource type="PackedScene" uid="uid://c76vl0in5ubxb" path="res://FpsControllor/weapon_manager/rpg/rocket-launcher.glb" id="3_2cyf1"]
+
+[resource]
+script = ExtResource("1_p5ttn")
+bullet_amt = 5
+bullet_spread = 2.25
+name = ""
+slot = 5
+slot_priority = 1
+view_model = ExtResource("2_hkvon")
+world_model = ExtResource("3_2cyf1")
+view_model_pos = Vector3(1.539, -0.495, 0.06)
+view_model_rot = Vector3(0, 1.71566, 0)
+view_model_scale = Vector3(0.365, 0.365, 0.365)
+world_model_pos = Vector3(0, 0, 0)
+world_model_rot = Vector3(0, 0, 0)
+world_model_scale = Vector3(1, 1, 1)
+view_idle_anim = ""
+view_equip_anim = ""
+view_reload_anim = ""
+view_shoot_anim = ""
+current_ammo = 6.0
+magazine_capacity = 6.0
+reserve_ammo = inf
+max_reserve_ammo = inf
+auto_fire = false
+max_fire_rate_ms = 200.0
+impact_force = 5.0
+v_recoil = 0.0
+h_recoil = 0.0
+damage = 20
+bullet_range = 40.0

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b48wddmekgwb1"]
+
+[ext_resource type="Script" path="res://FpsControllor/levelling_system/level_up_system.gd" id="1_nre0t"]
+
+[node name="LevelUpSystem" type="Node3D"]
+script = ExtResource("1_nre0t")
+slow_factor = 0.2

@@ -1,0 +1,286 @@
+[gd_scene load_steps=23 format=3 uid="uid://frw4yydmklj"]
+
+[ext_resource type="Script" path="res://FpsControllor/weapon_manager/player_hud/player_hud.gd" id="1_d4a5r"]
+[ext_resource type="Texture2D" uid="uid://bnrv4au7iny0k" path="res://FpsControllor/weapon_manager/player_hud/crosshair/crosshair-dot.svg" id="1_xqwyd"]
+[ext_resource type="Texture2D" uid="uid://3l2tosguwkdh" path="res://FpsControllor/weapon_manager/player_hud/crosshair/crosshair-left-outline.svg" id="2_83xwy"]
+[ext_resource type="PackedScene" uid="uid://hwosgspthgii" path="res://FpsControllor/weapon_manager/player_hud/weapon_select_layout.tscn" id="2_y1nm7"]
+[ext_resource type="Texture2D" uid="uid://t7yh5i2vb11c" path="res://FpsControllor/weapon_manager/player_hud/crosshair/crosshair-left-side.svg" id="3_q2gvy"]
+[ext_resource type="Shader" path="res://FpsControllor/weapon_manager/player_hud/crosshair.gdshader" id="3_ytca8"]
+[ext_resource type="Texture2D" uid="uid://cfdj3ndm4utpb" path="res://FpsControllor/weapon_manager/player_hud/crosshair/crosshair-right-outline.svg" id="4_43tff"]
+[ext_resource type="Texture2D" uid="uid://daol7c0iwa5eh" path="res://FpsControllor/weapon_manager/player_hud/crosshair/crosshair-right-side.svg" id="5_d34lr"]
+[ext_resource type="Script" path="res://FpsControllor/weapon_manager/player_hud/speed.gd" id="8_8bjtx"]
+[ext_resource type="Script" path="res://FpsControllor/weapon_manager/player_hud/fps.gd" id="9_xuqea"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ik1bc"]
+shader = ExtResource("3_ytca8")
+shader_parameter/filled_percent = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2273y"]
+shader = ExtResource("3_ytca8")
+shader_parameter/filled_percent = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klcnq"]
+bg_color = Color(0, 0, 0, 0.172549)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_aw3fa"]
+font_size = 26
+font_color = Color(0.439216, 0.803922, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0myhe"]
+font_size = 55
+font_color = Color(0.439216, 0.803922, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kdrtm"]
+bg_color = Color(0, 0, 0, 0.172549)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_6gso1"]
+font_size = 26
+font_color = Color(0.439216, 0.803922, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ktkgd"]
+font_size = 45
+font_color = Color(0.439216, 0.803922, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fqmlv"]
+font_size = 45
+font_color = Color(0.439216, 0.803922, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pwl2h"]
+font_size = 65
+font_color = Color(0.439216, 0.803922, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_t6dew"]
+font_size = 30
+font_color = Color(0.439216, 0.803922, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_n3ph5"]
+font_size = 30
+font_color = Color(0.439216, 0.803922, 1, 1)
+
+[node name="PlayerHUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_d4a5r")
+weapon_select_layout = ExtResource("2_y1nm7")
+
+[node name="WeaponSwitchMenu" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 130.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="1" type="VBoxContainer" parent="WeaponSwitchMenu"]
+layout_mode = 2
+
+[node name="2" type="VBoxContainer" parent="WeaponSwitchMenu"]
+layout_mode = 2
+
+[node name="3" type="VBoxContainer" parent="WeaponSwitchMenu"]
+layout_mode = 2
+
+[node name="4" type="VBoxContainer" parent="WeaponSwitchMenu"]
+layout_mode = 2
+
+[node name="5" type="VBoxContainer" parent="WeaponSwitchMenu"]
+layout_mode = 2
+
+[node name="6" type="VBoxContainer" parent="WeaponSwitchMenu"]
+layout_mode = 2
+
+[node name="CrosshairCenterContainer" type="CenterContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dot" type="TextureRect" parent="CrosshairCenterContainer"]
+layout_mode = 2
+texture = ExtResource("1_xqwyd")
+
+[node name="HealthBarOutline" type="TextureRect" parent="CrosshairCenterContainer"]
+layout_mode = 2
+texture = ExtResource("2_83xwy")
+
+[node name="HealthBar" type="TextureRect" parent="CrosshairCenterContainer"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ik1bc")
+layout_mode = 2
+texture = ExtResource("3_q2gvy")
+
+[node name="AmmoBarOutline" type="TextureRect" parent="CrosshairCenterContainer"]
+layout_mode = 2
+texture = ExtResource("4_43tff")
+
+[node name="AmmoBar" type="TextureRect" parent="CrosshairCenterContainer"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_2273y")
+layout_mode = 2
+texture = ExtResource("5_d34lr")
+
+[node name="DebugInfo" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -131.0
+offset_bottom = 49.0
+grow_horizontal = 0
+mouse_filter = 2
+
+[node name="Speed" type="Label" parent="DebugInfo"]
+layout_mode = 0
+offset_left = -52.0
+offset_top = 3.0
+offset_right = 4.0
+offset_bottom = 26.0
+text = "Speed :"
+script = ExtResource("8_8bjtx")
+
+[node name="FPS" type="Label" parent="DebugInfo"]
+layout_mode = 0
+offset_left = -33.0
+offset_top = 31.0
+offset_right = 7.0
+offset_bottom = 54.0
+text = "FPS :"
+script = ExtResource("9_xuqea")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -111.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HealthBox" type="Panel" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 75)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_klcnq")
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/HealthBox"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 56.0
+offset_right = 110.0
+offset_bottom = 92.0
+text = "HEALTH "
+label_settings = SubResource("LabelSettings_aw3fa")
+
+[node name="HealthLabel" type="Label" parent="MarginContainer/HBoxContainer/HealthBox"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 131.0
+offset_top = 12.0
+offset_right = 242.0
+offset_bottom = 102.0
+text = "100
+"
+label_settings = SubResource("LabelSettings_0myhe")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AmmoBox" type="Panel" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 75)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kdrtm")
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/AmmoBox"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 54.0
+offset_right = 94.0
+offset_bottom = 90.0
+text = "AMMO"
+label_settings = SubResource("LabelSettings_6gso1")
+
+[node name="ClipAmmoLabel" type="Label" parent="MarginContainer/HBoxContainer/AmmoBox"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 107.0
+offset_top = 33.0
+offset_right = 158.0
+offset_bottom = 96.0
+text = "30"
+label_settings = SubResource("LabelSettings_ktkgd")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="ReserveAmmoLabel" type="Label" parent="MarginContainer/HBoxContainer/AmmoBox"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 176.0
+offset_top = 33.0
+offset_right = 238.0
+offset_bottom = 96.0
+text = "30"
+label_settings = SubResource("LabelSettings_fqmlv")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Reminder" type="Label" parent="."]
+layout_mode = 0
+offset_left = 426.0
+offset_top = 73.0
+offset_right = 777.0
+offset_bottom = 242.0
+label_settings = SubResource("LabelSettings_pwl2h")
+
+[node name="BulletTimeReminder" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -125.0
+offset_right = 132.0
+offset_bottom = -35.0
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_t6dew")
+vertical_alignment = 1
+
+[node name="DieHardReminder" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 2.0
+offset_right = 172.0
+offset_bottom = 90.0
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_n3ph5")
+vertical_alignment = 1

@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=8 format=3 uid="uid://dalgdl4rlp8xg"]
+
+[ext_resource type="Script" path="res://FpsControllor/weapon_manager/weapon_resource.gd" id="1_5eoxo"]
+[ext_resource type="AudioStream" uid="uid://3u3udnw2f3oi" path="res://FpsControllor/weapon_manager/sounds/cc0-276963__gfl7__galil-reload-sound.mp3" id="1_7il3v"]
+[ext_resource type="Texture2D" uid="uid://c3hsidj45i132" path="res://FpsControllor/weapon_manager/p90/p90-icon.PNG" id="1_pgbkq"]
+[ext_resource type="AudioStream" uid="uid://d2lu16lp40dm0" path="res://FpsControllor/weapon_manager/sounds/cc0-371041__morganpurkis__single-gunshot-3.wav" id="3_p5yv6"]
+[ext_resource type="AudioStream" uid="uid://counu6xs7ni2t" path="res://FpsControllor/weapon_manager/sounds/cc0-377145__nioczkus__pistol-draw-unholster.wav" id="4_ogbvx"]
+[ext_resource type="PackedScene" uid="uid://baxmgdfjn3vi1" path="res://FpsControllor/weapon_manager/p90/p90.tscn" id="5_uww4y"]
+[ext_resource type="PackedScene" uid="uid://6s6l8kibarom" path="res://FpsControllor/weapon_manager/p90/p90.glb" id="6_ilja0"]
+
+[resource]
+script = ExtResource("1_5eoxo")
+name = "P90"
+icon = ExtResource("1_pgbkq")
+slot = 1
+slot_priority = 1
+view_model = ExtResource("5_uww4y")
+world_model = ExtResource("6_ilja0")
+view_model_pos = Vector3(0.415, -0.365, -0.315)
+view_model_rot = Vector3(0, 1.5708, 0)
+view_model_scale = Vector3(0.21, 0.21, 0.21)
+world_model_pos = Vector3(-0.0084908, 0.168977, 0.141918)
+world_model_rot = Vector3(0.0797275, 2.15386, 1.25964)
+world_model_scale = Vector3(0.176471, 0.176471, 0.176471)
+view_idle_anim = "Idle"
+view_equip_anim = "Unholster"
+view_reload_anim = "Reload"
+view_shoot_anim = "Shoot"
+shoot_sound = ExtResource("3_p5yv6")
+reload_sound = ExtResource("1_7il3v")
+unholster_sound = ExtResource("4_ogbvx")
+current_ammo = 30.0
+magazine_capacity = 50.0
+reserve_ammo = 200.0
+max_reserve_ammo = 200.0
+auto_fire = true
+max_fire_rate_ms = 75.0
+impact_force = 20.0
+v_recoil = 0.05
+h_recoil = 0.02
+damage = 10
+bullet_spread = 0.5
+bullet_range = 100.0

@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=8 format=3 uid="uid://c7mprad7ph3pn"]
+
+[ext_resource type="Texture2D" uid="uid://ddxj25ks1eaqs" path="res://FpsControllor/weapon_manager/deagle/deagle-icon.PNG" id="1_s3sht"]
+[ext_resource type="Script" path="res://FpsControllor/weapon_manager/weapon_resource.gd" id="1_ynciq"]
+[ext_resource type="AudioStream" uid="uid://d3vi2o7bmt2yc" path="res://FpsControllor/weapon_manager/sounds/cc0-276959__gfl7__pistol-reload-sound.mp3" id="1_yoda5"]
+[ext_resource type="PackedScene" uid="uid://dm0en2ih7ulrr" path="res://FpsControllor/weapon_manager/deagle/deagle.glb" id="3_bqro1"]
+[ext_resource type="AudioStream" uid="uid://6hf60jmtvo8b" path="res://FpsControllor/weapon_manager/sounds/cc0-385811__morganpurkis__single-pistol-gunshot-3.wav" id="3_dt350"]
+[ext_resource type="AudioStream" uid="uid://counu6xs7ni2t" path="res://FpsControllor/weapon_manager/sounds/cc0-377145__nioczkus__pistol-draw-unholster.wav" id="4_s2vgk"]
+[ext_resource type="PackedScene" uid="uid://bfrhn5y4um5cs" path="res://FpsControllor/weapon_manager/deagle/deagle - viewmodel.glb" id="5_sr4qh"]
+
+[resource]
+script = ExtResource("1_ynciq")
+name = "Deagle"
+icon = ExtResource("1_s3sht")
+slot = 2
+slot_priority = 1
+view_model = ExtResource("5_sr4qh")
+world_model = ExtResource("3_bqro1")
+view_model_pos = Vector3(0.305, -0.245, 0.3)
+view_model_rot = Vector3(0, -3.14159, 0)
+view_model_scale = Vector3(1, 1, 1)
+world_model_pos = Vector3(-0.0721359, 0.356171, 0.0456797)
+world_model_rot = Vector3(0.0648476, 2.1867, 1.42445)
+world_model_scale = Vector3(0.175, 0.175, 0.175)
+view_idle_anim = "Idle"
+view_equip_anim = "Unholster"
+view_reload_anim = "Reload"
+view_shoot_anim = "Shoot"
+shoot_sound = ExtResource("3_dt350")
+reload_sound = ExtResource("1_yoda5")
+unholster_sound = ExtResource("4_s2vgk")
+current_ammo = 7.0
+magazine_capacity = 7.0
+reserve_ammo = 35.0
+max_reserve_ammo = 35.0
+auto_fire = false
+max_fire_rate_ms = 200.0
+impact_force = 20.0
+v_recoil = 0.4
+h_recoil = 0.2
+damage = 70
+bullet_spread = 1.5
+bullet_range = 100.0

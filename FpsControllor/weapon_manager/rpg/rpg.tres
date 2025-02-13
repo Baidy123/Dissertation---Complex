@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="ProjectileWeaponResource" load_steps=6 format=3 uid="uid://ryklwcgbanxa"]
+
+[ext_resource type="Texture2D" uid="uid://c8j2nbu284jq" path="res://FpsControllor/weapon_manager/rpg/rocket-launcher-icon.PNG" id="1_2sl0i"]
+[ext_resource type="Script" path="res://FpsControllor/weapon_manager/projectile_weapon_resource.gd" id="1_alm8i"]
+[ext_resource type="PackedScene" uid="uid://bu6i3jjm3qmrq" path="res://FpsControllor/weapon_manager/rpg/rocket.tscn" id="1_b6deh"]
+[ext_resource type="PackedScene" uid="uid://ouejx70p4ccv" path="res://FpsControllor/weapon_manager/rpg/rocket_launcher.tscn" id="3_6t73f"]
+[ext_resource type="PackedScene" uid="uid://c76vl0in5ubxb" path="res://FpsControllor/weapon_manager/rpg/rocket-launcher.glb" id="4_bsyrm"]
+
+[resource]
+script = ExtResource("1_alm8i")
+projectile = ExtResource("1_b6deh")
+projectile_relative_velocity = Vector3(0, 0, -15)
+projectile_relative_spawn_pos = Vector3(0, 0, -3)
+projectile_relative_spawn_rotation = Vector3(0, 0, 0)
+name = "RPG"
+icon = ExtResource("1_2sl0i")
+slot = 4
+slot_priority = 1
+view_model = ExtResource("3_6t73f")
+world_model = ExtResource("4_bsyrm")
+view_model_pos = Vector3(1.539, -0.495, 0.06)
+view_model_rot = Vector3(0, 1.71566, 0)
+view_model_scale = Vector3(0.365, 0.365, 0.365)
+world_model_pos = Vector3(0.185329, -0.188347, 0.438331)
+world_model_rot = Vector3(0.0680678, 2.17119, 1.26362)
+world_model_scale = Vector3(0.265, 0.265, 0.265)
+view_idle_anim = ""
+view_equip_anim = ""
+view_reload_anim = ""
+view_shoot_anim = ""
+current_ammo = 1.0
+magazine_capacity = 1.0
+reserve_ammo = 10.0
+max_reserve_ammo = 10.0
+auto_fire = false
+max_fire_rate_ms = 50.0
+impact_force = 5.0
+v_recoil = 1.0
+h_recoil = 0.0
+damage = 10

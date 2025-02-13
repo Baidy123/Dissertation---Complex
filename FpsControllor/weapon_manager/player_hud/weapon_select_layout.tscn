@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://hwosgspthgii"]
+
+[ext_resource type="Texture2D" uid="uid://ddxj25ks1eaqs" path="res://FpsControllor/weapon_manager/deagle/deagle-icon.PNG" id="1_4qj2v"]
+[ext_resource type="Script" path="res://FpsControllor/weapon_manager/player_hud/weapon_select_layout.gd" id="1_qsmka"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klcnq"]
+bg_color = Color(0, 0, 0, 0.172549)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_nhl3t"]
+font_size = 28
+font_color = Color(0.439216, 0.803922, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2kdly"]
+font_size = 13
+font_color = Color(0.439216, 0.803922, 1, 1)
+
+[node name="WeaponSelectLayout" type="MarginContainer"]
+script = ExtResource("1_qsmka")
+
+[node name="SizedBackgroundPanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_klcnq")
+
+[node name="SlotNumber" type="Label" parent="SizedBackgroundPanel"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 4.0
+offset_right = 119.0
+offset_bottom = 85.0
+text = "1
+
+"
+label_settings = SubResource("LabelSettings_nhl3t")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="IconMargin" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_right = 14
+
+[node name="WeaponIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(133, 0)
+layout_mode = 2
+texture = ExtResource("1_4qj2v")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="WeaponName" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Deagle
+"
+label_settings = SubResource("LabelSettings_2kdly")
+horizontal_alignment = 1
+vertical_alignment = 1

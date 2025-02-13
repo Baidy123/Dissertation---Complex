@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://1l46g0e5olx2"]
+
+[ext_resource type="Script" path="res://FpsControllor/weapon_manager/weapon_manager.gd" id="1_5qwdk"]
+[ext_resource type="PackedScene" uid="uid://ddh34ookeoqpe" path="res://FpsControllor/weapon_manager/muzzle_flash.tscn" id="2_yjqrf"]
+
+[node name="WeaponManager" type="Node3D"]
+script = ExtResource("1_5qwdk")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+
+[node name="WorldMuzzleFlash" parent="." instance=ExtResource("2_yjqrf")]
+layers = 2
+
+[node name="ViewMuzzleFlash" parent="." instance=ExtResource("2_yjqrf")]
+layers = 256
