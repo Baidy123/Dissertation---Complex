@@ -147,7 +147,7 @@ func get_speed() -> float:
 	var speed = walk_speed
 	if is_crouched:
 		speed *=  0.75
-	if  is_sprinting:
+	if  not is_crouched and is_sprinting:
 		speed *= sprint_multi * skills_influence["endurance"]
 	if $LevellingSystem.deserter_active :
 		speed *= 2
@@ -515,7 +515,7 @@ func _physics_process(delta: float) -> void:
 		sprint_cooldown_remaining -= delta
 		if sprint_cooldown_remaining < 0.0:
 			sprint_cooldown_remaining = 0.0
-	var wants_to_sprint = Input.is_action_pressed("sprint")
+	var wants_to_sprint = Input.is_action_pressed("sprint") and not is_crouched
 	if wants_to_sprint:
 		if sprint_cooldown_remaining <= 0.0 and sprint_remaining_time > 0.0:
 			is_sprinting = true
