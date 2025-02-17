@@ -197,10 +197,7 @@ func deserter():
 func deserter_cold_down():
 	await get_tree().create_timer(deserter_cd).timeout
 	deserter_cd = 0
-	$"../PlayerHUD".get_node("DieHardReminder").set_text("Die Hard is ready...")
-	$"../PlayerHUD".get_node("DieHardReminder").set_visible(true)
-	await get_tree().create_timer(3.0).timeout
-	$"../PlayerHUD".get_node("DieHardReminder").set_visible(false)
+
 	
 #2b
 func cowboy(recoil: float):
@@ -221,6 +218,10 @@ func die_hard():
 func die_hard_cold_down():
 	await get_tree().create_timer(die_hard_cd).timeout
 	die_hard_cd = 0
+	$"../PlayerHUD".get_node("DieHardReminder").set_text("Die Hard is ready...")
+	$"../PlayerHUD".get_node("DieHardReminder").set_visible(true)
+	await get_tree().create_timer(3.0).timeout
+	$"../PlayerHUD".get_node("DieHardReminder").set_visible(false)
 	
 func update_influence_from_skills():
 	player.skills_influence["endurance"] = 1 + max(0, player.skills["endurance"] -15) * 0.005

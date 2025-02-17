@@ -147,6 +147,10 @@ func get_player_handguns():
 func get_player_longguns():
 	return weapon_manager.get_parent().skills_influence["longguns"]
 
+func fullfill_ammo():
+	current_ammo = magazine_capacity
+	reserve_ammo = max_reserve_ammo
+	
 var num_shots_fired : int = 0
 func fire_shot():
 	weapon_manager.play_anim(view_shoot_anim)
@@ -192,8 +196,11 @@ func fire_shot():
 		BulletDecalPool.spawn_bullet_decal(pt, nrml, obj, raycast.global_basis)
 		if obj is RigidBody3D:
 			obj.apply_impulse(-nrml * impact_force / obj.mass, pt -obj.global_position)
-		if obj.has_method("take_damage"):
-			obj.take_damage(self.damage, " ")
+		if obj.is_in_group("enemy") and obj.has_method("take_damage"):
+			obj.take_damage(self.damage)
+			var blood_splatter = preload("res://FpsControllor/weapon_manager/knife/blood_splatter.tscn").instantiate()
+			obj.add_sibling(blood_splatter)
+			blood_splatter.global_position = pt
 			
 	weapon_manager.show_muzzle_flash()
 	if num_shots_fired % 3 == 0:

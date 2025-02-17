@@ -14,6 +14,7 @@ var headbob_time = 0.0
 #Character stats
 @export var health := 100.0
 @export var max_health := 100.0
+@export var currency := 1000
 
 @export var aptitude : String = " "
 @export var attribute_available_points :int = 6
@@ -71,7 +72,56 @@ var skills_attribute = {
 }
 @export var curr_level = 1
 
-
+@export var weapons = {
+	"deagle" :  {
+				"name" : "deagle",
+				"owned" : false,
+				"price" : 1,
+				"type": "weapon",
+				"description" : "This is the Description for deagle",
+				"file_path": "res://FpsControllor/weapon_manager/deagle/deagle.tres"
+				},
+	"p90" : 	    {
+				"name" : "p90",
+				"owned" : false,
+				"price" : 1,
+				"type": "weapon",
+				"description" : "This is the Description for p90",
+				"file_path": "res://FpsControllor/weapon_manager/p90/p90.tres"
+				},
+	"knife" :   {
+				"name" : "knife",
+				"owned" : true,
+				"price" : 1,
+				"type": "weapon",
+				"description" : "This is the Description for knife",
+				"file_path": "res://FpsControllor/weapon_manager/knife/knife.tres"
+				},
+	"rpg" :     {
+				"name" : "rpg",
+				"owned" : false,
+				"price" : 1,
+				"type": "weapon",
+				"description" : "This is the Description for rpg",
+				"file_path": "res://FpsControllor/weapon_manager/rpg/rpg.tres"
+				},
+	"grenade" : {
+				"name" : "grenade",
+				"owned" : false,
+				"price" : 1,
+				"type": "weapon",
+				"description" : "This is the Description for nade",
+				"file_path": "res://FpsControllor/weapon_manager/grenade/grenade.tres"
+				},
+	"medkit": 	{
+				"name": "Medkit",
+				"price": 50,
+				"description": "Heals 50 HP",
+				"type": "medkit",          # 标记这是医疗箱
+				"max_quantity": 3,
+				"owned_quantity": 0
+				}
+}
 #Ground movement settings
 @export var walk_speed:= 6.0
 @export var sprint_multi:= 1.5
@@ -117,7 +167,7 @@ func update_viwe_and_world_model_masks():
 	%Camera3D.set_cull_mask_value(WORLD_MODEL_LAYER,false)
 	
 var dmg_reduce_rate : float = 0
-func take_damage(damage: float, dmg_type: String):
+func take_damage(damage: float, dmg_type: String = " "):
 	if $LevellingSystem.die_hard_active:
 		return
 	if perks["3b"] == true:
@@ -136,8 +186,32 @@ func take_damage(damage: float, dmg_type: String):
 		else:
 			health = 0
 			get_tree().change_scene_to_file("res://StarterScene.tscn")
-	
-	
+			
+func use_medic():
+	var medicine = weapons["medkit"]["owned_quantity"]
+	if medicine <= 0 or health >= max_health:
+		return
+	health += 35
+	if health >= max_health:
+		health = max_health
+	weapons["medkit"]["owned_quantity"] -= 1
+
+func fullfill_ammo():
+	var current_weapon = $WeaponManager.current_weapon
+	if (current_weapon.current_ammo and
+		 current_weapon.reserve_ammo == INF) or (current_weapon.current_ammo == current_weapon.magazine_capacity and 
+			current_weapon.reserve_ammo == current_weapon.max_reserve_ammo):
+		return
+	if currency < 1000:
+		$PlayerHUD.get_node("InteractiveWarning").set_visible(true)
+		$PlayerHUD.get_node("InteractiveWarning").text = "You need more money!"
+		await get_tree().create_timer(3).timeout
+		$PlayerHUD.get_node("InteractiveWarning").set_visible(false)
+		return
+	else:
+		current_weapon.fullfill_ammo()
+		currency -= 1000
+		
 var is_sprinting :bool = false 
 var sprint_limit: float = 5.0 * skills_influence["endurance"]
 var sprint_remaining_time := sprint_limit

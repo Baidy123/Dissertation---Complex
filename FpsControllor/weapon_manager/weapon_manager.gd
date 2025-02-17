@@ -192,7 +192,11 @@ func _unhandled_input(event) -> void:
 		if event.is_action_pressed("reload") and not current_weapon.trigger_down:
 
 			reload_weapon()
-
+			
+func add_weapon(new_weapon: Resource) -> void:
+	equipped_weapons.append(new_weapon)
+	print("Weapon added:", new_weapon)
+	
 func _ready() -> void:
 	update_weapon_model()
 

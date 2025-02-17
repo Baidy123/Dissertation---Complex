@@ -18,10 +18,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif has_node("CharacterSheet"):
 			get_node("CharacterSheet").queue_free()
 	if event.is_action_pressed("initsheet") and !has_init_sheet_opened:
-		has_init_sheet_opened = true
-		if not has_node("InitialSheet"):
-			var init_sheet = load("res://FpsControllor/levelling_system/initial_sheet.tscn").instantiate()
-			add_child(init_sheet)
+		#has_init_sheet_opened = true
+		#if not has_node("InitialSheet"):
+			#var init_sheet = load("res://FpsControllor/levelling_system/initial_sheet.tscn").instantiate()
+			#add_child(init_sheet)
+		if not has_node("Store"):
+			var store = load("res://FpsControllor/levelling_system/Store.tscn").instantiate()
+			add_child(store)
+		elif has_node("Store"):
+			get_node("Store").queue_free()
 		#elif has_node("InitialSheet"):
 			#get_node("InitialSheet").queue_free()
 			

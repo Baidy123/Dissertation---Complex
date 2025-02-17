@@ -22,22 +22,32 @@ func fire_shot():
 		var nrml = raycast.get_collision_normal()
 		var pt = raycast.get_collision_point()
 		var dmg_increase = weapon_manager.get_parent().skills_influence["melee"]
-		var chance_to_knock_back = weapon_manager.get_parent().skills_influence["intimidation"]
+		var critical_rate = weapon_manager.get_parent().skills_influence["intimidation"]
+		#print(critical_rate)
 		bullet_target_pos = pt
 		BulletDecalPool.spawn_bullet_decal(pt, nrml, obj, raycast.global_basis, preload("res://FpsControllor/weapon_manager/knifedecal.png"))
 		if obj is RigidBody3D:
 			obj.apply_impulse(-nrml * 5.0 / obj.mass, pt - obj.global_position)
 		
-		if obj.has_method("take_backstab_damage") and raycast_dir.dot(-obj.global_basis.z) > 0.4 and (obj.global_transform.affine_inverse() * raycast.global_position).z > 0.0:
-			obj.take_backstab_damage(self.damage)
+		#if obj.has_method("take_backstab_damage") and raycast_dir.dot(-obj.global_basis.z) > 0.4 and (obj.global_transform.affine_inverse() * raycast.global_position).z > 0.0:
+			#obj.take_backstab_damage(self.damage)
+			#var blood_splatter = preload("res://FpsControllor/weapon_manager/knife/blood_splatter.tscn").instantiate()
+			#obj.add_sibling(blood_splatter)
+			#blood_splatter.global_position = pt
+		if obj.is_in_group("enemy") and obj.has_method("take_damage"):
 			var blood_splatter = preload("res://FpsControllor/weapon_manager/knife/blood_splatter.tscn").instantiate()
 			obj.add_sibling(blood_splatter)
 			blood_splatter.global_position = pt
-		elif obj.has_method("take_damage"):
-
-			obj.take_damage(self.damage * dmg_increase, " ")
-			if randf() < chance_to_knock_back:
-				obj.apply_impulse(-nrml * 100.0 / obj.mass, pt - obj.global_position)
+			if randf() < critical_rate:
+				obj.take_damage(self.damage * dmg_increase * 5)
+			else:
+				obj.take_damage(self.damage * dmg_increase)
+			
+		#elif obj.has_method("take_damage"):
+#
+			#obj.take_damage(self.damage * dmg_increase, " ")
+			#if randf() < chance_to_knock_back:
+				#obj.apply_impulse(-nrml * 100.0 / obj.mass, pt - obj.global_position)
 		if weapon_manager.get_parent().perks["3a"] == true:
 			if weapon_manager.get_parent().health < weapon_manager.get_parent().max_health:
 				weapon_manager.get_parent().health += int(self.damage * 0.1 * dmg_increase)

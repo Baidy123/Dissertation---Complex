@@ -113,9 +113,12 @@ func _unhandled_input(event):
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_update_weapon_switch_menu()
+	$PlayerHit.visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	$CurrencyReminder.text = "   $ " + str(player.currency)
+	$MedicReminder.text = "[H]x" + str(player.weapons["medkit"]["owned_quantity"])
 	# Update weapon switch menu visibility
 	%WeaponSwitchMenu.modulate = Color(1, 1, 1, get_weapon_menu_visibility())
 	weapon_manager.allow_shoot = get_weapon_menu_visibility() != 1.0
@@ -140,3 +143,8 @@ func _process(delta: float) -> void:
 		else: %ReserveAmmoLabel.text = str(weapon_manager.current_weapon.reserve_ammo)
 		
 		%ReserveAmmoLabel.visible = weapon_manager.current_weapon.max_reserve_ammo > 0
+
+func _on_player_player_hit() -> void:
+	$PlayerHit.visible = true
+	await get_tree().create_timer(0.2).timeout
+	$PlayerHit.visible = false
