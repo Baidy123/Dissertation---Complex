@@ -148,7 +148,7 @@ const WORLD_MODEL_LAYER = 2
 const CROUCH_TRANSLATE = 0.7
 
 var is_crouched := false
-
+signal player_hit()
 
 
 func _ready() -> void:
@@ -173,6 +173,7 @@ func take_damage(damage: float, dmg_type: String = " "):
 	if perks["3b"] == true:
 		if dmg_type == "explosion":
 			return
+	emit_signal("player_hit")
 	var final_damage = damage * (max(0.5, 1 - skills_influence["resilience"]))
 	if perks["1c"] == true:
 		final_damage = $LevellingSystem.tough_skin(final_damage)

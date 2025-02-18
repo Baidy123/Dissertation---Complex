@@ -178,7 +178,7 @@ func fire_shot():
 	else:
 		#handgun
 		if slot == 2:
-			#print(max(0, (1- get_player_handguns())))
+			#print(get_player_handguns())
 			raycast.target_position = Vector3(max(0.5, (1- get_player_handguns())) * spread_x,max(0.5, (1- get_player_handguns())) * 
 												spread_y,-abs(bullet_range))
 		#longgun
@@ -197,7 +197,12 @@ func fire_shot():
 		if obj is RigidBody3D:
 			obj.apply_impulse(-nrml * impact_force / obj.mass, pt -obj.global_position)
 		if obj.is_in_group("enemy") and obj.has_method("take_damage"):
-			obj.take_damage(self.damage)
+			if slot == 2:
+				print(self.damage * (1 + 10 * get_player_handguns()))
+				obj.take_damage(self.damage * (1 + 10 * get_player_handguns()))
+			else:
+				print(self.damage * (1 + 10 * get_player_longguns()))
+				obj.take_damage(self.damage * (1 + 10 * get_player_longguns()))
 			var blood_splatter = preload("res://FpsControllor/weapon_manager/knife/blood_splatter.tscn").instantiate()
 			obj.add_sibling(blood_splatter)
 			blood_splatter.global_position = pt

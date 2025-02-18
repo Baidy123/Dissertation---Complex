@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://frw4yydmklj"]
+[gd_scene load_steps=25 format=3 uid="uid://c17nif6k5jqj"]
 
 [ext_resource type="Script" path="res://FpsControllor/weapon_manager/player_hud/player_hud.gd" id="1_d4a5r"]
 [ext_resource type="Texture2D" uid="uid://bnrv4au7iny0k" path="res://FpsControllor/weapon_manager/player_hud/crosshair/crosshair-dot.svg" id="1_xqwyd"]
@@ -319,6 +319,7 @@ label_settings = SubResource("LabelSettings_rfgmp")
 vertical_alignment = 1
 
 [node name="MedicReminder" type="Label" parent="."]
+layout_mode = 0
 offset_left = 15.0
 offset_top = 477.0
 offset_right = 135.0

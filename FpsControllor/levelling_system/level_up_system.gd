@@ -226,7 +226,7 @@ func die_hard_cold_down():
 func update_influence_from_skills():
 	player.skills_influence["endurance"] = 1 + max(0, player.skills["endurance"] -15) * 0.005
 	player.skills_influence["resilience"] = max(0, player.skills["resilience"] -15) * 0.003
-	player.skills_influence["melee"] = 1 + max(0, player.skills["melee"] -15) * 0.05
+	player.skills_influence["melee"] = 1 + max(0, player.skills["melee"] -15) * 0.025
 	player.skills_influence["intimidation"] = max(0, player.skills["intimidation"] -15) * 0.005
 	player.skills_influence["handguns"] = max(0, player.skills["handguns"] -15) * 0.0025
 	player.skills_influence["longguns"] = max(0, player.skills["longguns"] -15) * 0.0025
