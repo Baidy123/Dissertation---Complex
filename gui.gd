@@ -11,13 +11,17 @@ func _process(delta: float) -> void:
 	pass
 var has_init_sheet_opened = false
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel") or event.is_action_pressed("interact"):
+	if event.is_action_pressed("interact"):
 		if has_node("Store"):
 			Engine.time_scale = 1
 			get_node("Store").queue_free()
+			
 	if event.is_action_pressed("ui_cancel"):
 		if has_node("CharacterSheet"):
 			get_node("CharacterSheet").queue_free()
+		elif has_node("Store"):
+			Engine.time_scale = 1
+			get_node("Store").queue_free()
 		else:
 			pause_game()
 
@@ -56,6 +60,7 @@ func pause_game():
 			add_child(pause_menu)
 		else:
 			get_node("PauseMenu").queue_free()
+			Engine.time_scale = 1
 			
 			
 func _on_player_died() -> void:

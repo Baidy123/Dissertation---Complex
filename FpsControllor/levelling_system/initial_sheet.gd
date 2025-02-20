@@ -234,9 +234,9 @@ func _on_aptitude_confirm_pressed() -> void:
 
 		
 	if selected_aptitude_id.to_lower() == "assassin":
-		character.attributes["perception"] += 6
-		character.attributes["strength"] -= 2
-		character.attributes["constitution"] -= 1
+		character.attributes["perception"] += 5
+		character.attributes["strength"] -= 1
+		character.attributes["constitution"] -= 2
 
 		
 	if selected_aptitude_id.to_lower() == "soldier":
