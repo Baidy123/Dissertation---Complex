@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=4 format=3 uid="uid://b563n6pg41nhm"]
+
+[ext_resource type="Script" path="res://FpsControllor/weapon_manager/weapon_resource.gd" id="1_b53di"]
+[ext_resource type="Texture2D" uid="uid://7gjffppsvpe2" path="res://FpsControllor/weapon_manager/glock/glock.png" id="1_lmvj6"]
+[ext_resource type="PackedScene" uid="uid://b841032llx3ht" path="res://FpsControllor/weapon_manager/glock/glock.tscn" id="3_3uf8m"]
+
+[resource]
+script = ExtResource("1_b53di")
+name = "Glock"
+icon = ExtResource("1_lmvj6")
+slot = 2
+slot_priority = 1
+view_model = ExtResource("3_3uf8m")
+world_model = ExtResource("3_3uf8m")
+view_model_pos = Vector3(0.585, -0.185, -0.69)
+view_model_rot = Vector3(0, 0, 0)
+view_model_scale = Vector3(0.15, 0.15, 0.15)
+world_model_pos = Vector3(0, 0, 0)
+world_model_rot = Vector3(0, 0, 0)
+world_model_scale = Vector3(1, 1, 1)
+view_idle_anim = "Idle"
+view_equip_anim = "Unholster"
+view_reload_anim = "Reload"
+view_shoot_anim = "Shoot"
+current_ammo = 17.0
+magazine_capacity = 17.0
+reserve_ammo = 153.0
+max_reserve_ammo = 153.0
+auto_fire = false
+max_fire_rate_ms = 125.0
+impact_force = 5.0
+v_recoil = 0.06
+h_recoil = 0.02
+damage = 19
+has_lvl = true
+max_weapon_lvl = 3
+weapon_lvl = 0
+bullet_spread = 0.5
+bullet_range = 100.0

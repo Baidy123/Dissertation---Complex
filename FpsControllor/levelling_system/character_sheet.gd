@@ -16,8 +16,8 @@ var melee_add = 0
 var intimidation_add = 0
 var handguns_add = 0
 var longguns_add = 0
-@onready var character = get_node("../../Player")
-@onready var levelling_sys = get_node("../../Player/LevellingSystem")
+@onready var character = get_node("../../Map/Player")
+@onready var levelling_sys = get_node("../../Map/Player/LevellingSystem")
 
 func _ready() -> void:
 	if character and character.has_node("PlayerHUD"):
@@ -302,6 +302,7 @@ func _exit_tree():
 		character.get_node("PlayerHUD").visible = true  
 		character.get_node("PlayerHUD").set_process_unhandled_input(true)
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	Engine.time_scale = 1
 	
 
 

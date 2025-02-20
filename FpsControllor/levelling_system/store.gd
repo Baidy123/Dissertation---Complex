@@ -7,6 +7,7 @@ extends Control
 var currency :int 
 var selected_item_id := ""
 var selected_item_type := ""
+var door_opened :int = 0
 #
 #var constitution_add = 0
 #var strength_add = 0
@@ -18,8 +19,8 @@ var selected_item_type := ""
 #var intimidation_add = 0
 #var handguns_add = 0
 #var longguns_add = 0
-@onready var character = get_node("../../Player")
-@onready var levelling_sys = get_node("../../Player/LevellingSystem")
+@onready var character = get_node("../../Map/Player")
+@onready var levelling_sys = get_node("../../Map/Player/LevellingSystem")
 
 func _ready() -> void:
 	
@@ -171,7 +172,7 @@ func _buy_weapon_logic(info: Dictionary) -> void:
 		return
 
 	# 假设你的 Player 节点或 WeaponManager 有一个 add_weapon(res) 方法
-	var weapon_manager = get_node("../../Player/WeaponManager")  # 修改成你实际的路径
+	var weapon_manager = get_node("../../Map/Player/WeaponManager")  # 修改成你实际的路径
 	if weapon_manager and weapon_manager.has_method("add_weapon"):
 		weapon_manager.add_weapon(weapon_resource)
 	else:
@@ -180,18 +181,60 @@ func _buy_weapon_logic(info: Dictionary) -> void:
 	%Warning.text = "Purchase success!"
 
 func _update_weapon_buttons() -> void:
+	# 更新货币 Label
 	%Currency.text = "$ " + str(currency)
-	for weapon_id in character.weapons:
-		var w_info = character.weapons[weapon_id]
-		var button_path = "HBoxContainer/VBoxContainer/Weapons/WeaponName/%s" % weapon_id
-		var wbutton = get_node(button_path)
-		if wbutton:
-			# 如果 owned = true，就隐藏按钮；否则显示
-			if w_info["owned"] == true:
-				wbutton.visible = false
-			else:
-				wbutton.visible = true
 
+	# 1) 取得 "WeaponName" 容器
+	var parent_node = $HBoxContainer/VBoxContainer/Weapons/WeaponName
+	var child_count = parent_node.get_child_count()
+
+	# 2) 计算“本次要显示多少个按钮”
+	#    (例：默认3个 + 每 door_opened 累积2个就+1可见按钮)
+	var default_visible = 4
+	var extra_for_doors = floor(door_opened / 2)  # door_opened每2加1
+	var total_visible = default_visible + extra_for_doors
+
+	# 3) 遍历所有子节点(每个子节点 = 一个武器按钮)
+	for i in range(child_count):
+		var wbutton = parent_node.get_child(i+1)
+		# 取得按钮名称当作武器ID(或你可以 self-defined)
+		#print(i)
+		var w_id = wbutton.name.to_lower()  
+		#print(w_id)
+
+		# 如果 player.weapons 里没有这个w_id，就隐藏掉
+		if not character.weapons.has(w_id):
+			#wbutton.visible = false
+			continue
+
+		var w_info = character.weapons[w_id]
+
+		match w_info["type"]:
+			"weapon":
+				# 首先判断“owned”是否存在 & 是否 true
+				if w_info.has("owned") and w_info["owned"] == true:
+					wbutton.visible = false
+				else:
+					# 检查当前 i 与 total_visible
+					if i+1 < total_visible:
+						wbutton.visible = true
+					else:
+						wbutton.visible = false
+
+			"medkit":
+				# 没有 "owned" bool, 而是 "owned_quantity" 
+				# 只要 "owned_quantity" < "max_quantity" 就显示按钮 (或你自己需求)
+				if w_info.has("owned_quantity") and w_info.has("max_quantity"):
+					if w_info["owned_quantity"] < w_info["max_quantity"]:
+						wbutton.visible = true
+						return
+					else:
+						wbutton.visible = false
+						return
+				else:
+					# 没有这俩字段也可选默认显示
+					wbutton.visible = true
+					return
 func _buy_medkit_logic(info: Dictionary) -> void:
 	var owned_q = info["owned_quantity"]
 	var max_q = info["max_quantity"]
@@ -291,56 +334,6 @@ func spend_perk_points(perk_id: String):
 			button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			load_perks()
 			break
-
-	#
-#func _on_attribute_confirm_pressed() -> void:
-	#if strength_add + constitution_add + perception_add == 0:
-		#print("Nothing changed")
-	#else :
-		#character.attribute_available_points = attribute_available_points
-		#character.attributes["constitution"] += constitution_add
-		#character.attributes["strength"] += strength_add
-		#character.attributes["perception"] += perception_add
-		#character.skills["endurance"] += constitution_add * 5
-		#character.skills["resilience"] += constitution_add * 5
-		#character.skills["melee"] += strength_add * 5
-		#character.skills["intimidation"] += strength_add * 5
-		#character.skills["handguns"] += perception_add * 5
-		#character.skills["longguns"] += perception_add * 5
-		#
-		#strength_add = 0
-		#constitution_add = 0
-		#perception_add = 0
-		#load_stats()
-		#for button in get_tree().get_nodes_in_group("AttributeMinusButtons"):
-			#button.set_visible(false)
-		#for label in get_tree().get_nodes_in_group("AttributeChangeLabels"):
-			#label.set_text(" ")
-		#if attribute_available_points == 0:
-			#$HBoxContainer/VBoxContainer/Attributes/AttributeName/AttributePoints/AttributeConfirm.set_visible(false)
-
-#func _on_skill_confirm_pressed() -> void:
-	#if endurance_add + resilience_add + melee_add + intimidation_add + handguns_add + longguns_add == 0:
-		#print("Nothing changed")
-	#else :
-		#character.skill_available_points = skill_available_points
-		#character.skills["endurance"] += endurance_add
-		#character.skills["resilience"] += resilience_add
-		#character.skills["melee"] += melee_add
-		#character.skills["intimidation"] +=intimidation_add
-		#character.skills["handguns"] += handguns_add
-		#character.skills["longguns"] += longguns_add
-		#endurance_add = 0
-		#resilience_add = 0
-		#melee_add = 0
-		#intimidation_add = 0
-		#handguns_add = 0
-		#longguns_add = 0
-		#load_stats()
-		#for button in get_tree().get_nodes_in_group("SkillMinusButtons"):
-			#button.set_visible(false)
-		#for label in get_tree().get_nodes_in_group("SkillChangeLabels"):
-			#label.set_text(" ")
 
 
 

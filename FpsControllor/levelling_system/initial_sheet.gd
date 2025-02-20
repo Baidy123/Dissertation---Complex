@@ -1,8 +1,8 @@
 extends Control
 
 
-@onready var character = get_node("../../Player")
-@onready var levelling_sys = get_node("../../Player/LevellingSystem")
+@onready var character = get_node("../../Map/Player")
+@onready var levelling_sys = get_node("../../Map/Player/LevellingSystem")
 
 var skill_available_points : int
 var attribute_available_points : int 
@@ -329,6 +329,7 @@ func _exit_tree():
 		character.get_node("PlayerHUD").visible = true  
 		character.get_node("PlayerHUD").set_process_unhandled_input(true)
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	Engine.time_scale = 1
 
 
 

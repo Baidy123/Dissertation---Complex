@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="MeleeWeaponResource" load_steps=6 format=3 uid="uid://doy3gu88534ca"]
+
+[ext_resource type="Script" path="res://FpsControllor/weapon_manager/melee_weapon_resource.gd" id="1_gu5dw"]
+[ext_resource type="Texture2D" uid="uid://d04f1e7gtn1ap" path="res://FpsControllor/weapon_manager/axe/axe.png" id="1_mvcpm"]
+[ext_resource type="AudioStream" uid="uid://mo7wjc6cs6j4" path="res://FpsControllor/weapon_manager/sounds/cc0-swoosh.wav" id="2_xx8sq"]
+[ext_resource type="PackedScene" uid="uid://0v5iirkpovam" path="res://FpsControllor/weapon_manager/axe/axe.tscn" id="4_akgci"]
+[ext_resource type="AudioStream" uid="uid://caqx08x73s06y" path="res://FpsControllor/weapon_manager/sounds/cc0-118792__lmbubec__1_knife_slash_a.wav" id="4_mqdt8"]
+
+[resource]
+script = ExtResource("1_gu5dw")
+max_hit_dist = 2.5
+miss_sound = ExtResource("2_xx8sq")
+name = "Axe"
+icon = ExtResource("1_mvcpm")
+slot = 3
+slot_priority = 2
+view_model = ExtResource("4_akgci")
+world_model = ExtResource("4_akgci")
+view_model_pos = Vector3(0.39, -0.305, -0.255)
+view_model_rot = Vector3(0, 1.5708, 0)
+view_model_scale = Vector3(0.6, 0.6, 0.6)
+world_model_pos = Vector3(0, 0, 0)
+world_model_rot = Vector3(0, 0, 0)
+world_model_scale = Vector3(1, 1, 1)
+view_idle_anim = "Idle"
+view_equip_anim = "Unholster"
+view_reload_anim = ""
+view_shoot_anim = "Shoot"
+shoot_sound = ExtResource("4_mqdt8")
+current_ammo = inf
+magazine_capacity = inf
+reserve_ammo = inf
+max_reserve_ammo = inf
+auto_fire = false
+max_fire_rate_ms = 550.0
+impact_force = 5.0
+v_recoil = 0.0
+h_recoil = 0.0
+damage = 95
+has_lvl = true
+max_weapon_lvl = 3
+weapon_lvl = 0
+bullet_spread = 1.0
+bullet_range = 100.0

@@ -129,7 +129,7 @@ func level_up():
 
 		#print("Level up! current level:", curr_level)
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("gain_exp"):
+	if event.is_action_pressed("gain_exp") and OS.has_feature("debug"):
 		gain_experience(10000)
 		print(player.experience["total_exp"])
 		print(player.experience["curr_lvl_exp"])
@@ -163,10 +163,10 @@ func bullet_time():
 		return  
 	if bullet_time_cd != 0:
 		return
-	bullet_time_cd = 5.0
+	bullet_time_cd = 10
 	is_bullet_time_active = true
 	Engine.time_scale = slow_factor  
-	await get_tree().create_timer(1 * slow_factor).timeout
+	await get_tree().create_timer(6 * slow_factor).timeout
 	Engine.time_scale = 1.0  
 	is_bullet_time_active = false
 	bullet_time_cold_down()
@@ -224,10 +224,13 @@ func die_hard_cold_down():
 	$"../PlayerHUD".get_node("DieHardReminder").set_visible(false)
 	
 func update_influence_from_skills():
-	player.skills_influence["endurance"] = 1 + max(0, player.skills["endurance"] -15) * 0.005
-	player.skills_influence["resilience"] = max(0, player.skills["resilience"] -15) * 0.003
-	player.skills_influence["melee"] = 1 + max(0, player.skills["melee"] -15) * 0.025
-	player.skills_influence["intimidation"] = max(0, player.skills["intimidation"] -15) * 0.005
-	player.skills_influence["handguns"] = max(0, player.skills["handguns"] -15) * 0.0025
-	player.skills_influence["longguns"] = max(0, player.skills["longguns"] -15) * 0.0025
-	#print(character.skills_influence["handguns"])
+	player.skills_influence["endurance"] = 1 + max(-0.5, player.skills["endurance"] -15) * 0.005
+	player.skills_influence["resilience"] = max(-0.5, player.skills["resilience"] -15) * 0.003
+	player.skills_influence["melee"] = 1 + max(-0.5, player.skills["melee"] -15) * 0.025
+	player.skills_influence["intimidation"] = max(-0.5, player.skills["intimidation"] -15) * 0.005
+	player.skills_influence["handguns"] = max(-0.5, player.skills["handguns"] -15) * 0.0012
+	player.skills_influence["longguns"] = max(-0.5, player.skills["longguns"] -15) * 0.0012
+	for key in player.skills_influence:
+		if player.skills_influence[key] < 0 :
+			#print(player.skills_influence[key])
+			player.skills_influence[key] *= 100

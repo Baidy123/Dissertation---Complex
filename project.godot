@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="SimpleFPSController"
-run/main_scene="res://StarterScene.tscn"
+run/main_scene="res://Map/Menu/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/show_image=false
 

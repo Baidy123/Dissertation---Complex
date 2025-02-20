@@ -146,7 +146,8 @@ func get_player_handguns():
 
 func get_player_longguns():
 	return weapon_manager.get_parent().skills_influence["longguns"]
-
+	
+var fullfill_money = 500
 func fullfill_ammo():
 	current_ammo = magazine_capacity
 	reserve_ammo = max_reserve_ammo
@@ -198,6 +199,7 @@ func fire_shot():
 			obj.apply_impulse(-nrml * impact_force / obj.mass, pt -obj.global_position)
 		if obj.is_in_group("enemy") and obj.has_method("take_damage"):
 			if slot == 2:
+				print(10 * get_player_handguns())
 				print(self.damage * (1 + 10 * get_player_handguns()))
 				obj.take_damage(self.damage * (1 + 10 * get_player_handguns()))
 			else:

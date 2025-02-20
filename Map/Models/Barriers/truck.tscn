@@ -1,0 +1,144 @@
+[gd_scene load_steps=8 format=4 uid="uid://btah88wjfju42"]
+
+[ext_resource type="Texture2D" uid="uid://cxrafpqgl0diu" path="res://Map/Models/Barriers/Textures/truck.png" id="1_56lis"]
+[ext_resource type="Texture2D" uid="uid://b3ub8n48jlvrd" path="res://Map/Models/Barriers/Textures/metal.png" id="2_dxiwa"]
+
+[sub_resource type="GDScript" id="GDScript_0eugj"]
+script/source = "@tool
+extends CSGBox3D
+
+@export var num_stairs : int = 10
+
+var _cur_num_stairs = -1
+var _cur_size : Vector3
+
+func make_stairs():
+	#if not Engine.is_editor_hint():
+		#return
+	#
+	num_stairs = clampi(num_stairs, 0, 999)
+
+	var stairs_poly = $StairsSubtractCSG#add_fresh_stairs_csg_poly()
+	
+	var point_arr : PackedVector2Array = PackedVector2Array()
+	var step_height = self.size.y / num_stairs
+	var step_width = self.size.x / num_stairs
+	
+	if num_stairs == 0:
+		# For 0 stairs make a ramp
+		point_arr.append(Vector2(self.size.x, self.size.y))
+		point_arr.append(Vector2(0, self.size.y))
+		point_arr.append(Vector2(0, 0))
+	else:
+		# Creating the points for the stairs polygon
+		for i in range(num_stairs - 1):
+			point_arr.append(Vector2(i * step_width, (i + 1) * step_height))
+			if i < num_stairs:
+				point_arr.append(Vector2((i + 1) * step_width, (i + 1) * step_height))
+
+		# Closing the polygon by adding the last two points
+		point_arr.append(Vector2(self.size.x - step_width, self.size.y))
+		point_arr.append(Vector2(0, self.size.y))
+	
+	stairs_poly.polygon = point_arr
+		
+	stairs_poly.depth = self.size.z
+	
+	stairs_poly.position.z = self.size.z / 2.0
+	stairs_poly.position.y = -self.size.y / 2.0
+	stairs_poly.position.x = -self.size.x / 2.0
+
+	_cur_num_stairs = num_stairs
+	_cur_size = self.size
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	if _cur_num_stairs != num_stairs or _cur_size != self.size:
+		make_stairs()
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f1kj1"]
+resource_name = "truck"
+shading_mode = 0
+albedo_texture = ExtResource("1_56lis")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8i1df"]
+resource_name = "metal"
+shading_mode = 0
+albedo_texture = ExtResource("2_dxiwa")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_wu5vc"]
+_surfaces = [{
+"aabb": AABB(-0.415, 0, -0.8217, 0.83, 1.00596, 1.6434),
+"format": 34896613377,
+"index_count": 186,
+"index_data": PackedByteArray("AgAAAAEAAQADAAIAAgAEAAUABQAAAAIABgAFAAQABAAHAAYACgAIAAkACQALAAoADgAMAA0ADQAPAA4AEAAOAA8ADwARABAAEAARAAgACAAKABAAEgALAAkACQATABIABgAHAA0ADQAMAAYAFQAUAAMAAwABABUAEgATABYAFgAXABIADAAOABAAEAAGAAwAEAAKAAYACgALAAYACwASAAYABgASABgAFwAYABIABgAYAAAAAAAFAAYAGAABAAAAGAAZAAEAGQAVAAEAHAAaABsAHAAbABQAFAAVABwAHQAcABUAFQAZAB0AGQAeAB0AAwAUABsAGwAfAAMAAgADAB8ABAACAB8ABAAfABMAHwAWABMABwAEABMABwATAAkABwAJAAgABwAIABEADQAHABEAEQAPAA0AFgAfACAAIAAhABYAIQAYABYAGAAXABYAIgAhACAAIAAjACIAHAAjACAAIAAaABwAHgAhACIAIgAdAB4A"),
+"name": "truck",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 36,
+"vertex_data": PackedByteArray("AAAAAKzfAAAAALgUrN8AAP//AACs3wAA//+4FKzfAAD//wAAvB0AAAAAAAC8HQAAAAC4FLwdAAD//7gUvB0AAP//gNIPFAAA//+A0sAZAAAAAIDSDxQAAAAAgNLAGQAAAAC4FAAAAAD//7gUAAAAAAAAGIgAAAAA//8YiAAAAAAAAGzGagsAAP//bMZqCwAAAAD//0knAAD/////SScAAP//uBT//wAAAAC4FP//AAD/////BUoAAAAA//8FSgAAAADpVwVKAAAAAOlX//8AAIvR6Vf//wAA///pV///AACL0S9L//8AAHMuL0v//wAAcy7pV///AAD//+lXBUoAAIvR6VcFSgAAcy7pVwVKAABzLi9LBUoAAIvRL0sFSgAA")
+}, {
+"aabb": AABB(-0.415, 0.295454, -0.34651, 0.83, 0.05, 1.16821),
+"format": 34896613377,
+"index_count": 18,
+"index_data": PackedByteArray("AgAAAAEAAQADAAIABgAEAAUABQAHAAYACgAIAAkACQALAAoA"),
+"name": "metal",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("i9EAAAAAAACL0QAA//8AAHMuAAAAAAAAcy4AAP//AAD/////AAAAAP///////wAAi9H//wAAAACL0f////8AAHMu//8AAAAAcy7/////AAAAAP//AAAAAAAA/////wAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_pfbs4"]
+resource_name = "truck-flat_truck-flat"
+_surfaces = [{
+"aabb": AABB(-0.415, 0, -0.8217, 0.83, 1.00596, 1.6434),
+"attribute_data": PackedByteArray("3IIZ/NyCEviYhRn8mIUS+JN9yNUWf8jVk33L9xZ/y/fpekr8C3hK/Ol6E/gLeBP4eXfw1Xl3C9RXevDVV3oL1Fd6dP55d3T+V3r35nl39+ZXerjZeXe42Xl38NVXevDVhHkk19V3JNeEeRjR1XcY0RB40v4QeO707nrS/u567vR8hTv1fIV+/7+CO/W/gn7/yHeo1sh3DNBseajWbHkM0GVmsiTHZp4RZWYCSGNnAkgRZ+wNQWfsDbVnAADdaHEz3WgAANptWU5jZ1lO2m0CSO5ucTPubgJII4Uh8KKFIfAjhZryooUv/eWCL/1lg5ry5YIh8GWDIfDubgJI7m5xM9ptAkjdaHEz2m1ZTmNnWU61ZwAA3WgAAGNnAkhBZ+wNEWfsDcdmnhFlZgJIZWayJN0CHHFYAhxx3QLlToUAHHEAABxxAADlToUAs3NYArNz3WhWN91ocTPublY37m5xM91ocTPdaFY37m5xM+5uVjc="),
+"format": 34896613399,
+"index_count": 186,
+"index_data": PackedByteArray("AgAAAAEAAQADAAIABgAEAAUABQAHAAYACgAIAAkACQALAAoADgAMAA0ADQAPAA4AEgAQABEAEQATABIAFAASABMAEwAVABQAFAAVABYAFgAXABQAGgAYABkAGQAbABoAHgAcAB0AHQAfAB4AIgAgACEAIQAjACIAJgAkACUAJQAnACYAKgAoACkAKQArACoAKQAsACsALAAtACsALQAuACsAKwAuAC8AMAAvAC4AKwAvADEAMQAyACsALwAzADEALwA0ADMANAA1ADMAOAA2ADcAOAA3ADkAOQA6ADgAOwA4ADoAOgA8ADsAPAA9ADsAQAA+AD8APwBBAEAAQgBAAEEAQwBCAEEAQwBBAEQAQQBFAEQARgBDAEQARgBEAEcARgBHAEgARgBIAEkASgBGAEkASQBLAEoATgBMAE0ATQBPAE4ATwBQAE4AUABRAE4AUgBPAE0ATQBTAFIAVgBUAFUAVQBXAFYAWgBYAFkAWQBbAFoA"),
+"material": SubResource("StandardMaterial3D_f1kj1"),
+"name": "truck",
+"primitive": 3,
+"uv_scale": Vector4(29.9996, 2, 0, 0),
+"vertex_count": 92,
+"vertex_data": PackedByteArray("AAAAAKzfAIAAALgUrN8AgP//AACs3wCA//+4FKzfAID//wAAvB3//wAAAAC8Hf////8AAKzf//8AAAAArN///wAAAAC8Hf////8AALwd//8AALgUvB3/////uBS8Hf////+A0g8U/////4DSwBn//wAAgNIPFP//AACA0sAZ//8AALgUAAD/////uBQAAP//AAAYiAAA/////xiIAAD//wAAbMZqC/////9sxmoL/////4DSDxT//wAAgNIPFP//AACA0sAZ/////4DSwBn//wAA//9JJ////////0kn/////7gUvB3/////uBQAAP//AAC4FLwd//8AALgUAAD/////uBT///+///+4FKzf/78AALgU////vwAAuBSs3/+//////0kn////////BUr//wAA//9JJ///AAD//wVK//8AABiIAAD/vwAAbMZqC/+/AAC4FAAA/78AALgUvB3/vwAAgNIPFP+/AACA0sAZ/78AAP//SSf/vwAA6VcFSv+/AAD//wVK/78AAAAArN//vwAAAAC8Hf+/AAC4FKzf/78AAOlX////vwAAuBT///+/i9HpV///AID//+lX//8AgIvRL0v//wCA//+4FP//AIAAALgU//8AgHMuL0v//wCAAADpV///AIBzLulX//8AgP//uBT//wAA///pV///AAD//7gUrN8AAP//6VcFSgAA//8AAKzfAAD//wAAvB0AAP////9JJwAA/////wVKAAD//7gUvB0AAP//gNLAGQAA//+A0g8UAAD//2zGagsAAP//uBQAAAAA//8YiAAAAAD//+lXBUoAgIvR6VcFSgCA/////wVKAIBzLulXBUoAgAAA6VcFSgCAAAD//wVKAIBzLi9LBUoAgIvRL0sFSgCAi9EvSwVK/7+L0elXBUr/v4vRL0v///+/i9HpV////79zLulXBUoAAHMuL0sFSgAAcy7pV///AABzLi9L//8AAP9/////f////3////9/////f/8//3//P/9//z//f/8//3////9/////f////3////9//7//f/+//3//v/9//7//f////3////9/T/f/f0/3/3+z4v9/s+L/f6HX/3+h1/9/DOj/fwzo/39f0v9/X9L/f/8//3//P/9//z//f/8/AAD/fwAA/38AAP9/AAD/f/9/X9L/f/+//39f0v9//7//f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////7//f/+//3//v/9//7//f/+//3//v/9//7//f/+//3//v/9//7//f/+//3//v/9//7//f/+//3//f////3////9/////f////3////9/////f////3////9/////f////3////9/////v/9//7//f/+//3//v/9/")
+}, {
+"aabb": AABB(-0.415, 0.295454, -0.34651, 0.83, 0.05, 1.16821),
+"attribute_data": PackedByteArray("cy7//3Mu8pCL0f//i9HykAAA//8AAPKQcy7//3Mu8pCL0f//i9HykP////////KQ"),
+"format": 34896613399,
+"index_count": 18,
+"index_data": PackedByteArray("AgAAAAEAAQADAAIABgAEAAUABQAHAAYACgAIAAkACQALAAoA"),
+"material": SubResource("StandardMaterial3D_8i1df"),
+"name": "metal",
+"primitive": 3,
+"uv_scale": Vector4(0.83, 2.69302, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("i9EAAAAA//+L0QAA/////3MuAAAAAP//cy4AAP//////////AAD/////////////i9H//wAA//+L0f///////3Mu//8AAP//cy7///////8AAP//AAD//wAA/////////3//v/9//7//f/+//3//v/9//7//f/+//3//v/9//7//f/+//3//v/9//7//f/+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_wu5vc")
+
+[node name="truck-flat2" type="Node3D"]
+
+[node name="CSGStairMaker3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.405762, 3, -0.00448608)
+use_collision = true
+collision_layer = 3
+collision_mask = 3
+size = Vector3(10.8115, 5, 5.77631)
+script = SubResource("GDScript_0eugj")
+num_stairs = 0
+
+[node name="StairsSubtractCSG" type="CSGPolygon3D" parent="CSGStairMaker3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.40576, -2.5, 2.88815)
+operation = 2
+polygon = PackedVector2Array(10.8115, 5, 0, 5, 0, 0)
+depth = 5.77631
+
+[node name="truck-flat" type="MeshInstance3D" parent="."]
+transform = Transform3D(-7.27401e-08, 2.34076, -7.19154, -7.75637e-07, -5.13681, -3.27707, -5.645, 6.75649e-07, 5.42946e-07, -0.894168, 3.25805, -0.00448608)
+mesh = SubResource("ArrayMesh_pfbs4")
+skeleton = NodePath("")

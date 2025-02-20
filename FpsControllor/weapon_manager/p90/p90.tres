@@ -38,6 +38,6 @@ max_fire_rate_ms = 75.0
 impact_force = 20.0
 v_recoil = 0.05
 h_recoil = 0.02
-damage = 10
+damage = 20
 bullet_spread = 0.5
 bullet_range = 100.0

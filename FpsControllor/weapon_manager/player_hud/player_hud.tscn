@@ -282,25 +282,30 @@ label_settings = SubResource("LabelSettings_pwl2h")
 
 [node name="BulletTimeReminder" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = -1.0
-offset_top = -125.0
-offset_right = 132.0
-offset_bottom = -35.0
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.446
+anchor_right = 1.0
+anchor_bottom = 0.446
+offset_left = -136.0
+offset_top = -65.008
+offset_right = -3.0
+offset_bottom = 24.992
 grow_vertical = 2
 label_settings = SubResource("LabelSettings_t6dew")
 vertical_alignment = 1
 
 [node name="DieHardReminder" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 2.0
-offset_right = 172.0
-offset_bottom = 90.0
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.616
+anchor_right = 1.0
+anchor_bottom = 0.616
+offset_left = -171.0
+offset_top = -45.168
+offset_right = -1.0
+offset_bottom = 44.832
 grow_vertical = 2
 label_settings = SubResource("LabelSettings_n3ph5")
 vertical_alignment = 1
@@ -319,11 +324,15 @@ label_settings = SubResource("LabelSettings_rfgmp")
 vertical_alignment = 1
 
 [node name="MedicReminder" type="Label" parent="."]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 477.0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.734
+anchor_bottom = 0.734
+offset_left = 8.0
+offset_top = -15.632
 offset_right = 135.0
-offset_bottom = 539.0
+offset_bottom = 46.368
+grow_vertical = 0
 text = "[H] x 10"
 label_settings = SubResource("LabelSettings_madbl")
 
@@ -343,18 +352,9 @@ grow_vertical = 2
 label_settings = SubResource("LabelSettings_rfgmp")
 horizontal_alignment = 1
 
-[node name="InteractiveText" type="Label" parent="."]
+[node name="WaveNotice" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -101.0
-offset_top = -124.0
-offset_right = 101.0
-offset_bottom = -45.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 202.0
+offset_bottom = 79.0
 label_settings = SubResource("LabelSettings_rfgmp")
 horizontal_alignment = 1

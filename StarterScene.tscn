@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=4 uid="uid://cumlkudt7n44b"]
+[gd_scene load_steps=69 format=4 uid="uid://cumlkudt7n44b"]
 
 [ext_resource type="Material" uid="uid://bk7nbd8td4gb1" path="res://textures/grey_checkerboard_mat.tres" id="1_1bstl"]
 [ext_resource type="PackedScene" uid="uid://d21we6cyc1utl" path="res://models/enemy/enemy.tscn" id="1_5f5u7"]
@@ -7,7 +7,6 @@
 [ext_resource type="ArrayMesh" uid="uid://dry23jeo6prdo" path="res://models/terrain_mesh.mesh" id="4_t8olv"]
 [ext_resource type="Texture2D" uid="uid://c7yth5opetwes" path="res://textures/kenney-dark-grey-checkerboard.png" id="5_pnti6"]
 [ext_resource type="Texture2D" uid="uid://b28c62e3f23vb" path="res://textures/kenney-orange-checkerboard-cc0.png" id="6_s6lf8"]
-[ext_resource type="Script" path="res://models/InteractableComponent.gd" id="8_252b7"]
 [ext_resource type="PackedScene" uid="uid://7dm87wp0hyjg" path="res://models/wiggly_hair.tscn" id="9_h741b"]
 [ext_resource type="PackedScene" uid="uid://dv5h2pyptm0nv" path="res://FpsControllor/player.tscn" id="9_jv3qt"]
 [ext_resource type="PackedScene" uid="uid://dghibg1q8ctm2" path="res://gui.tscn" id="10_ny2mb"]
@@ -242,59 +241,6 @@ _data = {
 [sub_resource type="BoxMesh" id="BoxMesh_i7efb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0llak"]
-
-[sub_resource type="GDScript" id="GDScript_tgehm"]
-script/source = "extends AnimatableBody3D
-func _process(delta: float):
-	#$MeshInstance3D.visible = !!$InteractableComponent.get_character_hovered_by_cur_camera()
-	var character = $InteractableComponent.get_character_hovered_by_cur_camera()
-	if character:
-		character.get_node(\"PlayerHUD\").get_node(\"InteractiveText\").text = str(\"1000\")
-		character.get_node(\"PlayerHUD\").get_node(\"InteractiveText\").visible = true
-	else:
-		if has_node(\"../Player\"):
-			var local_player = get_node(\"../Player\")
-			#print(local_player)
-			local_player.get_node(\"PlayerHUD\").get_node(\"InteractiveText\").visible = false
-	
-"
-
-[sub_resource type="Animation" id="Animation_666is"]
-resource_name = "door_open"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node3D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.333333, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0.647793, 0), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape3D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.333333, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0.356, 0), Vector3(0, 1.00424, 0), Vector3(0, 0.356, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_awr1o"]
-_data = {
-"door_open": SubResource("Animation_666is")
-}
-
-[sub_resource type="BoxMesh" id="BoxMesh_p61x0"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_6symi"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_35iws"]
 albedo_color = Color(0.447059, 0.447059, 0.447059, 1)
@@ -844,30 +790,6 @@ transform = Transform3D(0.538, 0, 0, 0, 0.673, 0, 0, 0, 0.038, 0, 0.356, 0)
 shape = SubResource("BoxShape3D_0llak")
 
 [node name="InteractableComponent" type="Node" parent="NavigationRegion3D/Door"]
-script = ExtResource("8_252b7")
-
-[node name="Button" type="AnimatableBody3D" parent="NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.3498, -0.97261, -32.7715)
-script = SubResource("GDScript_tgehm")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="NavigationRegion3D/Button"]
-libraries = {
-"": SubResource("AnimationLibrary_awr1o")
-}
-
-[node name="Node3D" type="Node3D" parent="NavigationRegion3D/Button"]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Button/Node3D"]
-transform = Transform3D(0.538082, 0, 0, 0, 0.67345, 0, 0, 0, 0.0378175, 0, 0.356109, 0)
-mesh = SubResource("BoxMesh_p61x0")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Button"]
-transform = Transform3D(0.538, 0, 0, 0, 0.673, 0, 0, 0, 0.038, 0, 0.356, 0)
-shape = SubResource("BoxShape3D_6symi")
-
-[node name="InteractableComponent" type="Node" parent="NavigationRegion3D/Button"]
-script = ExtResource("8_252b7")
 
 [node name="Ladder" type="Node3D" parent="NavigationRegion3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66.9307, 6.49674, 2.62351)
@@ -1027,8 +949,3 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.0
 text = "HP: 1000"
 font = SubResource("SystemFont_jiwdd")
 font_size = 96
-
-[connection signal="interacted" from="NavigationRegion3D/Door/InteractableComponent" to="NavigationRegion3D/Door" method="toggle_open"]
-[connection signal="interacted" from="NavigationRegion3D/Button/InteractableComponent" to="Player" method="fullfill_ammo"]
-[connection signal="interacted" from="NavigationRegion3D/Button/InteractableComponent" to="NavigationRegion3D/Door" method="toggle_open"]
-[connection signal="interacted" from="NavigationRegion3D/Button/InteractableComponent" to="NavigationRegion3D/Button/AnimationPlayer" method="play" binds= ["door_open"]]

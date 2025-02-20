@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=4 uid="uid://uro5i46gn0cj"]
+
+[ext_resource type="Texture2D" uid="uid://cxrafpqgl0diu" path="res://Map/Models/Barriers/Textures/truck.png" id="1_xr2r6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kjcrg"]
+resource_name = "truck"
+shading_mode = 0
+albedo_texture = ExtResource("1_xr2r6")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_i028g"]
+_surfaces = [{
+"aabb": AABB(-0.415, 0, -0.584105, 0.83, 0.738358, 1.16821),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AgAAAAEAAQADAAIAAgADAAQABAAFAAIABgAAAAIAAgAFAAYABAAHAAYABgAFAAQABwABAAAAAAAGAAcABAADAAEAAQAHAAQA"),
+"name": "truck",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("/////wAAAAD//wAAAAAAAP///////wAA//8AAP//AAAAAAAA//8AAAAA/////wAAAAD//wAAAAAAAAAAAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_egfyq"]
+resource_name = "truck-grey-cargo_truck-grey-cargo"
+_surfaces = [{
+"aabb": AABB(-0.415, 0, -0.584105, 0.83, 0.738358, 1.16821),
+"attribute_data": PackedByteArray("DQCbPw0AiVyaIZs/miGJXCufWLoJkFi6K5/7pwmQ+6cAAAAA9RsAAAAAGhv1GxobDQCJXA0Amz+aIYlcmiGbPyufWLorn/unCZBYugmQ+6f1GwAAAAAAAPUbGhsAABob"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AgAAAAEAAQADAAIABgAEAAUABQAHAAYACgAIAAkACQALAAoADgAMAA0ADQAPAA4AEgAQABEAEQATABIAFgAUABUAFQAXABYA"),
+"material": SubResource("StandardMaterial3D_kjcrg"),
+"name": "truck",
+"primitive": 3,
+"uv_scale": Vector4(5.42393, 3.97556, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("/////wAAAAD//wAAAAAAAP///////wAA//8AAP//AAD//wAA//8AgAAAAAD//wCA////////AIAAAP////8AgP////8AAFTV////////VNUAAP//AABU1QAA/////1TVAAAAAAAA/78AAP//AAD/vwAAAAD///+/AAD//////7///wAAAAAAAP////8AAAAAAAAAAAAAAAAAAP//AAAAAP//AAD//6oq//8AAAAAqioAAAAA//+qKgAAAAAAAKoq/7//f/+//3//v/9//7//f/9/////f////3////9///+qqqqqqqqqqqqqqqqqqqqq/3////9/////f////3///////3////9/////f////3+qKlTVqipU1aoqVNWqKlTV")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_i028g")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_106gv"]
+points = PackedVector3Array(-0.413869, -5.55112e-17, -0.578899, 0.414579, 0.7384, 0.573725, -0.410151, 0.7384, 0.573725, -0.413869, -5.55112e-17, 0.578899, 0.415, 0.00293946, -0.574311, -0.410151, 0.7384, -0.573725, 0.415, 0.00293946, 0.574311, 0.414579, 0.7384, -0.573725)
+
+[node name="truck-grey-cargo2" type="StaticBody3D"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="truck-grey-cargo" type="MeshInstance3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 7, 0, 0, 0)
+mesh = SubResource("ArrayMesh_egfyq")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 7, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_106gv")

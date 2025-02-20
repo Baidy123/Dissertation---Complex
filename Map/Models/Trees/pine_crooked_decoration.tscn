@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjt637xgdta41"]
+
+[ext_resource type="PackedScene" uid="uid://co35tu4v314bv" path="res://Map/Models/Trees/pineCrooked.glb" id="1_24pud"]
+
+[node name="pineCrooked" instance=ExtResource("1_24pud")]
+
+[node name="pineCrooked2" parent="." index="0"]
+transform = Transform3D(3, 0, 0, 0, 3.126, 0, 0, 0, 3, 0, 0, 0)

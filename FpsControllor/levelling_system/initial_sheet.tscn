@@ -1699,7 +1699,7 @@ label_settings = SubResource("LabelSettings_owi7x")
 custom_minimum_size = Vector2(0, 180)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Increases the chance to induce panic in nearby enemies when defeating an opponent.
+text = "Increases the chance of critical hit when using melee weapons.
 Linked Attribute: Strength
 
 "

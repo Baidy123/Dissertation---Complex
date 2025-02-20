@@ -2,7 +2,7 @@ class_name Player
 extends CharacterBody3D
 
 @export var sensitivity : float = 0.006
-@export var jump_velocity:= 6.0
+@export var jump_velocity:= 5.0
 
 var wish_dir = Vector3.ZERO
 var camera_aligned_wish_dir = Vector3.ZERO
@@ -76,7 +76,7 @@ var skills_attribute = {
 	"deagle" :  {
 				"name" : "deagle",
 				"owned" : false,
-				"price" : 1,
+				"price" : 700,
 				"type": "weapon",
 				"description" : "This is the Description for deagle",
 				"file_path": "res://FpsControllor/weapon_manager/deagle/deagle.tres"
@@ -84,23 +84,23 @@ var skills_attribute = {
 	"p90" : 	    {
 				"name" : "p90",
 				"owned" : false,
-				"price" : 1,
+				"price" : 2350,
 				"type": "weapon",
 				"description" : "This is the Description for p90",
 				"file_path": "res://FpsControllor/weapon_manager/p90/p90.tres"
 				},
-	"knife" :   {
-				"name" : "knife",
-				"owned" : true,
-				"price" : 1,
-				"type": "weapon",
-				"description" : "This is the Description for knife",
-				"file_path": "res://FpsControllor/weapon_manager/knife/knife.tres"
-				},
+	#"knife" :   {
+				#"name" : "knife",
+				#"owned" : true,
+				#"price" : 1,
+				#"type": "weapon",
+				#"description" : "This is the Description for knife",
+				#"file_path": "res://FpsControllor/weapon_manager/knife/knife.tres"
+				#},
 	"rpg" :     {
 				"name" : "rpg",
 				"owned" : false,
-				"price" : 1,
+				"price" : 10000,
 				"type": "weapon",
 				"description" : "This is the Description for rpg",
 				"file_path": "res://FpsControllor/weapon_manager/rpg/rpg.tres"
@@ -113,12 +113,52 @@ var skills_attribute = {
 				"description" : "This is the Description for nade",
 				"file_path": "res://FpsControllor/weapon_manager/grenade/grenade.tres"
 				},
+	"m4" :		{
+				"name" : "m4",
+				"owned" : false,
+				"price" : 2900,
+				"type": "weapon",
+				"description" : "This is the Description for m4",
+				"file_path": "res://FpsControllor/weapon_manager/m4/m4.tres"
+				},
+	"ak47" :	{
+				"name" : "ak47",
+				"owned" : false,
+				"price" : 2700,
+				"type": "weapon",
+				"description" : "This is the Description for ak47",
+				"file_path": "res://FpsControllor/weapon_manager/ak47/ak47.tres"
+				},
+	"aa12" :	{
+				"name" : "aa12",
+				"owned" : false,
+				"price" : 5000,
+				"type": "weapon",
+				"description" : "This is the Description for aa12",
+				"file_path": "res://FpsControllor/weapon_manager/aa12/aa12.tres"
+				},
+	"axe" :		{
+				"name" : "axe",
+				"owned" : false,
+				"price" : 1000,
+				"type": "weapon",
+				"description" : "This is the Description for axe",
+				"file_path": "res://FpsControllor/weapon_manager/axe/axe.tres"
+				},
+	"sawed_off" :		{
+				"name" : "sawed_off",
+				"owned" : false,
+				"price" : 1050,
+				"type": "weapon",
+				"description" : "This is the Description for sawed_off",
+				"file_path": "res://FpsControllor/weapon_manager/sawed_off/sawed_off.tres"
+				},
 	"medkit": 	{
 				"name": "Medkit",
-				"price": 50,
-				"description": "Heals 50 HP",
+				"price": 500,
+				"description": "Heals 35 HP",
 				"type": "medkit",          # 标记这是医疗箱
-				"max_quantity": 3,
+				"max_quantity": 5,
 				"owned_quantity": 0
 				}
 }
@@ -149,9 +189,14 @@ const CROUCH_TRANSLATE = 0.7
 
 var is_crouched := false
 signal player_hit()
-
+var gui
 
 func _ready() -> void:
+	if OS.has_feature("debug"):
+		currency = 1000000
+	if has_node("../../GUI"):
+		gui = get_node("../../GUI")
+	update_viwe_and_world_model_masks()
 	update_viwe_and_world_model_masks()
 		
 
@@ -167,7 +212,10 @@ func update_viwe_and_world_model_masks():
 	%Camera3D.set_cull_mask_value(WORLD_MODEL_LAYER,false)
 	
 var dmg_reduce_rate : float = 0
+var is_died = false
 func take_damage(damage: float, dmg_type: String = " "):
+	if is_died == true:
+		return
 	if $LevellingSystem.die_hard_active:
 		return
 	if perks["3b"] == true:
@@ -186,7 +234,8 @@ func take_damage(damage: float, dmg_type: String = " "):
 			health = 1
 		else:
 			health = 0
-			get_tree().change_scene_to_file("res://StarterScene.tscn")
+			is_died = true
+			gui._on_player_died()
 			
 func use_medic():
 	var medicine = weapons["medkit"]["owned_quantity"]
@@ -196,7 +245,10 @@ func use_medic():
 	if health >= max_health:
 		health = max_health
 	weapons["medkit"]["owned_quantity"] -= 1
-
+func return_fullfill_costs():
+	var current_weapon = $WeaponManager.current_weapon
+	return current_weapon.fullfill_money
+	
 func fullfill_ammo():
 	var current_weapon = $WeaponManager.current_weapon
 	if (current_weapon.current_ammo and
@@ -255,6 +307,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-90), deg_to_rad((90)))
 	if event.is_action_pressed("bullettime") and perks["1b"]:
 		$LevellingSystem.bullet_time()
+	if Input.is_action_just_pressed("healing"):
+		use_medic()
 
 func get_interactable_component_at_shapecast() -> InteractableComponent:
 	for i in %InteractShapeCast3D.get_collision_count():

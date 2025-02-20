@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ShotgunWeaponResource" load_steps=4 format=3 uid="uid://mr1w35xr4wff"]
 
-[ext_resource type="Script" path="res://FpsControllor/weapon_manager/shootgun_weapon_resource.gd" id="1_p5ttn"]
+[ext_resource type="Script" path="res://FpsControllor/weapon_manager/shotgun_weapon_resource.gd" id="1_p5ttn"]
 [ext_resource type="PackedScene" uid="uid://ouejx70p4ccv" path="res://FpsControllor/weapon_manager/rpg/rocket_launcher.tscn" id="2_hkvon"]
 [ext_resource type="PackedScene" uid="uid://c76vl0in5ubxb" path="res://FpsControllor/weapon_manager/rpg/rocket-launcher.glb" id="3_2cyf1"]
 

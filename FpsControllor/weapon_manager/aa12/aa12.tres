@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="ShotgunWeaponResource" load_steps=4 format=3 uid="uid://coliliji5h2rw"]
+
+[ext_resource type="Texture2D" uid="uid://dqjnku3nh7swc" path="res://FpsControllor/weapon_manager/aa12/aa12.png" id="1_gk005"]
+[ext_resource type="Script" path="res://FpsControllor/weapon_manager/shotgun_weapon_resource.gd" id="1_rh4fq"]
+[ext_resource type="PackedScene" uid="uid://cdehnlpcndpvs" path="res://FpsControllor/weapon_manager/aa12/aa_12.tscn" id="3_feeep"]
+
+[resource]
+script = ExtResource("1_rh4fq")
+bullet_amt = 6
+name = "AA12"
+icon = ExtResource("1_gk005")
+slot = 4
+slot_priority = 2
+view_model = ExtResource("3_feeep")
+world_model = ExtResource("3_feeep")
+view_model_pos = Vector3(0.215, -0.14, -0.31)
+view_model_rot = Vector3(0, 0, 0)
+view_model_scale = Vector3(1, 1, 1)
+world_model_pos = Vector3(0, 0, 0)
+world_model_rot = Vector3(0, 0, 0)
+world_model_scale = Vector3(1, 1, 1)
+view_idle_anim = "Idle"
+view_equip_anim = "Unholster"
+view_reload_anim = "Reload"
+view_shoot_anim = "Shoot"
+current_ammo = 20.0
+magazine_capacity = 20.0
+reserve_ammo = 100.0
+max_reserve_ammo = 100.0
+auto_fire = true
+max_fire_rate_ms = 200.0
+impact_force = 5.0
+v_recoil = 0.25
+h_recoil = 0.1
+damage = 20
+has_lvl = true
+max_weapon_lvl = 3
+weapon_lvl = 0
+bullet_spread = 3.0
+bullet_range = 50.0

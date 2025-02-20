@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="ShotgunWeaponResource" load_steps=4 format=3 uid="uid://41lp83l437ds"]
+
+[ext_resource type="Texture2D" uid="uid://dsdl7si12picb" path="res://FpsControllor/weapon_manager/sawed_off/sawed_off_icon.png" id="1_7fxvx"]
+[ext_resource type="Script" path="res://FpsControllor/weapon_manager/shotgun_weapon_resource.gd" id="1_k4jv5"]
+[ext_resource type="PackedScene" uid="uid://brmpe8trvq70l" path="res://FpsControllor/weapon_manager/sawed_off/sawed_off.tscn" id="3_61b7h"]
+
+[resource]
+script = ExtResource("1_k4jv5")
+bullet_amt = 5
+name = "SawedOff"
+icon = ExtResource("1_7fxvx")
+slot = 4
+slot_priority = 1
+view_model = ExtResource("3_61b7h")
+world_model = ExtResource("3_61b7h")
+view_model_pos = Vector3(0, -0.18, 0.065)
+view_model_rot = Vector3(0, 1.5708, 0)
+view_model_scale = Vector3(0.2, 0.2, 0.2)
+world_model_pos = Vector3(0, 0, 0)
+world_model_rot = Vector3(0, 0, 0)
+world_model_scale = Vector3(1, 1, 1)
+view_idle_anim = "Idle"
+view_equip_anim = "Unholster"
+view_reload_anim = "Reload"
+view_shoot_anim = "Shoot"
+current_ammo = 2.0
+magazine_capacity = 2.0
+reserve_ammo = 40.0
+max_reserve_ammo = 40.0
+auto_fire = false
+max_fire_rate_ms = 400.0
+impact_force = 5.0
+v_recoil = 0.6
+h_recoil = 0.3
+damage = 30
+has_lvl = true
+max_weapon_lvl = 3
+weapon_lvl = 0
+bullet_spread = 4.0
+bullet_range = 30.0
