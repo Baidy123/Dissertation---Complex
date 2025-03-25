@@ -40,6 +40,8 @@ pip install pandas statsmodels numpy scipy openpyxl
 ---
 
 # Final Note
-Thank you for reviewing this project. 
-We hope that one day, building upon this foundation, we can develop a real game. 
-Per aspera ad astra.
+**Thank you for reviewing this project.**
+
+**We hope that one day, building upon this foundation, we can develop a real game.**
+
+**Per aspera ad astra.**
